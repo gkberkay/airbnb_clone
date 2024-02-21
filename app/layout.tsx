@@ -5,6 +5,8 @@ import Navbar from './components/navbar/Navbar';
 import { Modal } from './components/modals/Modal';
 import RegisterModal from './components/modals/RegisterModal';
 import ToasterProvider from './providers/ToasterProvider';
+import LoginModal from './components/modals/LoginModal';
+import getCurrentUser from './actions/getCurrentUser';
 
 const inter = Nunito({ subsets: ['latin'] });
 
@@ -13,17 +15,20 @@ export const metadata: Metadata = {
   description: 'Developed by Gokberk AY',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  debugger;
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ToasterProvider/>
-        <Navbar />
-        <RegisterModal/>
+        <ToasterProvider />
+        <LoginModal />
+        <RegisterModal />
+        <Navbar currentUser={currentUser} />
         {/* <Modal actionLabel='Submit' title="Hello World" isOpen /> */}
         {children}
       </body>
