@@ -31,13 +31,14 @@ const RegisterModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
     axios
       .post('/api/register', data)
-      .then(() => {
+      .then((response) => {
+        console.log('Response:', response);
         registerModal.onClose();
       })
       .catch((error) => {
+        console.log('Response:', error);
         toast.error('Something went wrong');
       })
       .finally(() => {
